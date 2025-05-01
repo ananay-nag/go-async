@@ -31,6 +31,33 @@ go get github.com/ananay-nag/go-async
     import "github.com/ananay-nag/go-async"
 ```
 
+## ✅ What go-async Adds Over Raw Goroutines
+
+| Feature                          | go-async pkg                             | Raw Goroutines + Channels                 |
+|-----------------------------------|-------------------------------------------|--------------------------------------------|
+| 🔁 All, AllSettled, Race, Any     | ✅ Built-in                                | ❌ Manual wiring every time                 |
+| 🔒 Thread-safe                    | ✅ Uses sync primitives internally         | ❌ Easy to make race conditions             |
+| 🚀 Generic return types (any)     | ✅ Go 1.18+ generics                        | ❌ Need to type assert channels manually    |
+| 💥 Error propagation              | ✅ Built into API                          | ❌ You manage error channels separately     |
+| 🧹 Cleaner readable code          | ✅ Promise-style (`result, err := Any(...)`) | ❌ Often callback-ish, multiple selects     |
+| 🧪 Tested utilities                | ✅ Covered via unit tests                  | ❌ You write tests each time                |
+| 🔧 Composable                     | ✅ Chain patterns (All with Race, etc.)    | ❌ Not composable without custom code       |
+
+## 🧠 Pro Insight
+- Think of go-async as Promise-style orchestration for Go:
+
+- great for discrete async tasks (API calls, DB queries, parallel file reads)
+
+- less ideal for streaming and continuous processing (pipes, queues)
+
+
+## 🚫 When Raw Goroutines Are Better
+- Super low-level control (e.g., you need to cancel mid-way, or stream results continuously)
+
+- Performance critical where every nanosecond counts (go-async has minor overhead for abstraction)
+
+- Non-promise patterns like channels, fan-in, fan-out, pipelines
+
 ## ✅ Example: 
 ``` go
 
